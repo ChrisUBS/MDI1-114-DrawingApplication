@@ -15,10 +15,30 @@ struct CanvasView: UIViewRepresentable {
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
         canvasView.delegate = context.coordinator
-        
+        canvasView.isUserInteractionEnabled = true
+
+        // Drag interaction
         let dragInteraction = UIDragInteraction(delegate: context.coordinator)
         canvasView.addInteraction(dragInteraction)
-        
+
+        // Pinch to Zoom
+        let pinchGesture = UIPinchGestureRecognizer(
+            target: context.coordinator,
+            action: #selector(Coordinator.handlePinch(_:))
+        )
+
+        // Rotate
+        let rotateGesture = UIRotationGestureRecognizer(
+            target: context.coordinator,
+            action: #selector(Coordinator.handleRotate(_:))
+        )
+
+        pinchGesture.delegate = context.coordinator
+        rotateGesture.delegate = context.coordinator
+
+        canvasView.addGestureRecognizer(pinchGesture)
+        canvasView.addGestureRecognizer(rotateGesture)
+
         return canvasView
     }
     
@@ -28,17 +48,22 @@ struct CanvasView: UIViewRepresentable {
         Coordinator(self)
     }
     
-    class Coordinator: NSObject, PKCanvasViewDelegate, UIDragInteractionDelegate {
+    class Coordinator: NSObject,
+                      PKCanvasViewDelegate,
+                      UIDragInteractionDelegate,
+                      UIGestureRecognizerDelegate {
         var parent: CanvasView
         
         init(_ parent: CanvasView) {
             self.parent = parent
         }
         
+        // MARK: - PencilKit
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            
+            // Optional
         }
         
+        // MARK: - Drag Interaction
         func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
             let image = parent.canvasView.drawing.image(
                 from: parent.canvasView.bounds,
@@ -48,6 +73,42 @@ struct CanvasView: UIViewRepresentable {
             let provider = NSItemProvider(object: image)
             return [UIDragItem(itemProvider: provider)]
         }
+        
+        // MARK: - Gesture Recognizer Delegate
+            func gestureRecognizer(
+                _ gestureRecognizer: UIGestureRecognizer,
+                shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+            ) -> Bool {
+                return true
+            }
+        
+        // MARK: - Pinch Gesture (Zoom)
+        @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+            guard let view = gesture.view else { return }
+
+            let currentScale = view.frame.size.width / view.bounds.size.width
+            let minScale: CGFloat = 0.5
+            let maxScale: CGFloat = 3.0
+
+            var newScale = currentScale * gesture.scale
+            newScale = min(max(newScale, minScale), maxScale)
+
+            let scale = newScale / currentScale
+            view.transform = view.transform.scaledBy(x: scale, y: scale)
+            gesture.scale = 1
+        }
+
+        // MARK: - Rotate Gesture
+        @objc func handleRotate(_ gesture: UIRotationGestureRecognizer) {
+            guard let view = gesture.view else { return }
+
+            if gesture.state == .changed || gesture.state == .ended {
+                view.transform = view.transform.rotated(by: gesture.rotation)
+                gesture.rotation = 0
+            }
+        }
+
+        
     }
 }
 

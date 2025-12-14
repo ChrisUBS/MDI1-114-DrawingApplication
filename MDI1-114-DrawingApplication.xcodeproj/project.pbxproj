@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		8324A6432EEDEB8E0094183B /* MDI1-114-DrawingApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MDI1-114-DrawingApplication.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8324A6432EEDEB8E0094183B /* Drawing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		8324A6442EEDEB8E0094183B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8324A6432EEDEB8E0094183B /* MDI1-114-DrawingApplication.app */,
+				8324A6432EEDEB8E0094183B /* Drawing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8324A6422EEDEB8E0094183B /* MDI1-114-DrawingApplication */ = {
+		8324A6422EEDEB8E0094183B /* Drawing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8324A64E2EEDEB8F0094183B /* Build configuration list for PBXNativeTarget "MDI1-114-DrawingApplication" */;
+			buildConfigurationList = 8324A64E2EEDEB8F0094183B /* Build configuration list for PBXNativeTarget "Drawing" */;
 			buildPhases = (
 				8324A63F2EEDEB8E0094183B /* Sources */,
 				8324A6402EEDEB8E0094183B /* Frameworks */,
@@ -63,11 +63,11 @@
 			fileSystemSynchronizedGroups = (
 				8324A6452EEDEB8E0094183B /* MDI1-114-DrawingApplication */,
 			);
-			name = "MDI1-114-DrawingApplication";
+			name = Drawing;
 			packageProductDependencies = (
 			);
 			productName = "MDI1-114-DrawingApplication";
-			productReference = 8324A6432EEDEB8E0094183B /* MDI1-114-DrawingApplication.app */;
+			productReference = 8324A6432EEDEB8E0094183B /* Drawing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8324A6422EEDEB8E0094183B /* MDI1-114-DrawingApplication */,
+				8324A6422EEDEB8E0094183B /* Drawing */,
 			);
 		};
 /* End PBXProject section */
@@ -318,7 +318,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8324A64E2EEDEB8F0094183B /* Build configuration list for PBXNativeTarget "MDI1-114-DrawingApplication" */ = {
+		8324A64E2EEDEB8F0094183B /* Build configuration list for PBXNativeTarget "Drawing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8324A64F2EEDEB8F0094183B /* Debug */,
